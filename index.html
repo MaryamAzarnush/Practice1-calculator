@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/all.css">
+    <script type="text/javascript" src="script.js"></script>
     <title>Calculator</title>
 </head>
 
@@ -17,26 +18,26 @@
             <div class="input"><input data-previus type="text" placeholder="0" id="input"></div>
         </div>
         <div class="calculator-main">
-            <button class="color-top" ">AC</button>
-            <button class="color-top" ">^</button>
-            <button class="color-top" ">%</button>
-            <button class="color-right" "> รท </button>
-            <button ">7</button>
-            <button ">8</button>
-            <button ">9</button>
-            <button class="color-right" >*</button>
-            <button >4</button>
-            <button >5</button>
-            <button >6</button>
-            <button class="color-right" >-</button>
-            <button >1</button>
-            <button >2</button>
-            <button >3</button>
-            <button class="color-right">+</button>
-            <button ><i class="fa-solid fa-arrow-left"></i></button>
-            <button >0</button>
-            <button ">.</button>
-            <button class="color-right" >=</button>
+            <button class="color-top" >AC</button>
+            <button class="color-top" >^</button>
+            <button onclick="setInput('%')" class="color-top" >%</button>
+            <button onclick="setInput('/')" class="color-right">/</button>
+            <button onclick="setInput('7')">7</button>
+            <button onclick="setInput('8')">8</button>
+            <button onclick="setInput('9')">9</button>
+            <button onclick="setInput('*')" class="color-right" >*</button>
+            <button onclick="setInput('4')">4</button>
+            <button onclick="setInput('5')">5</button>
+            <button onclick="setInput('6')">6</button>
+            <button onclick="setInput('-')" class="color-right" >-</button>
+            <button onclick="setInput('1')">1</button>
+            <button onclick="setInput('2')">2</button>
+            <button onclick="setInput('3')">3</button>
+            <button onclick="setInput('+')" class="color-right">+</button>
+            <button onclick="setInput('c')" ><i class="fa-solid fa-arrow-left"></i></button>
+            <button onclick="setInput('0')">0</button>
+            <button onclick="setInput('.')" >.</button>
+            <button onclick="setInput('=')" class="color-right" >=</button>
         </div>
     </div>
 
