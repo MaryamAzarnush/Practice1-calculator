@@ -1,4 +1,5 @@
 var input_string = '';
+var all_input = '';
 var sign = '+';
 var number1 = 0;
 var operator = '';
@@ -9,56 +10,115 @@ function setInput(input) {
 
     if (input.match(/[0-9.]/)) {
 
-        input_string += (input);
-        showInput();
+        if ((input == '0' && (all_input == '' || input_string == '')) || (input == '.' && input_string.includes('.'))) {
+
+        } else {
+
+            input_string += input;
+            all_input += input;
+            showInput();
+        }
     }
 
-    switch (input) {
-        case 'c':
-            reset();
-            showInput();
-            break;
-        case '-':
-            if (input_string == '') {
-                input_string += (input);
+    if (all_input != '') {
+
+        switch (input) {
+            case 'b':
+                var char = all_input.charAt(all_input.length - 1);
+                if (char.match(/[0-9.]/)) {
+                    input_string = input_string.substring(0, input_string.length - 1);
+                } else {
+                    if (char == '-' && all_input == '-') {
+                        input_string = input_string.substring(0, input_string.length - 1);
+                    }
+                    operator = '';
+                }
+                all_input = all_input.substring(0, all_input.length - 1);
                 showInput();
                 break;
-            }
-        case '/':
-        case '*':
-        case '+':
-            number1 = parseFloat(input_string);
-            input_string = '';
-            operator = input;
-            break;
+            case 'c':
+                reset();
+                showInput();
+                break;
+            case '^':
+            case '-':
+            case '/':
+            case '*':
+            case '+':
 
-        case '%':
-            operator = '%';
+                if (all_input == '-') {
+                    break;
+                }
 
-        case '=':
-            number2 = parseFloat(input_string);
+                if (operator == '') {
+                    number1 = parseFloat(input_string);
+                    input_string = '';
+                    operator = input;
+                    all_input += input;
+                    showInput();
+                } else {
+                    if (input_string != '') {
+                        number2 = parseFloat(input_string);
+                        computing();
+                        input_string = '';
+                        operator = input;
+                        all_input = result + input;
+                        showInput();
+                    } else {
+                        operator = input;
+                        all_input = all_input.substring(0, all_input.length - 1) + input;
+                        showInput();
 
-            computing();
-            input_string = result;
+                    }
+
+                }
+
+                break;
+
+            case '%':
+                operator = '%';
+
+            case '=':
+                if (number1 != 0 && operator != '') {
+
+                    number2 = parseFloat(input_string);
+                    computing();
+                    input_string = result+'';
+                    all_input = result+'';
+                    showInput();
+                    operator = '';
+                    break;
+                }
+        }
+    } else {
+        if (input == '-') {
+            input_string += input;
+            all_input += input;
             showInput();
-
-            number1 = result;
-            operator = '';
-
-            break;
+        }
     }
 
 }
 
 function showInput() {
 
-    document.getElementById('input').value = input_string;
+    document.getElementById('input').value = all_input;
 
 }
 
 function computing() {
 
     switch (operator) {
+        case '^':
+            result = 1;
+            for (i = 0; i < number2; i++) {
+                result = result * number1;
+            }
+            if (sign == '-') {
+                result *= -1;
+            }
+            break;
+
         case '%':
             if (sign == '+') {
                 result = (number2 / 100) * number1;
@@ -101,10 +161,14 @@ function computing() {
 
             break;
     }
+
+    number1 = result;
+    number2 = 0;
 }
 
 function reset() {
 
+    all_input = '';
     input_string = '';
     sign = '+';
     number1 = 0;
