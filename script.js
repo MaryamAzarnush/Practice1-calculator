@@ -83,9 +83,11 @@ function setInput(input) {
 
                     number2 = parseFloat(input_string);
                     computing();
-                    input_string = result+'';
+                  //  input_string = result+'';
                     all_input = result+'';
                     showInput();
+                    all_input = '';
+                    input_string ='';
                     operator = '';
                     break;
                 }
